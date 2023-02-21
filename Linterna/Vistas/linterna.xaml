@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Linterna.Vistas.linterna"
+             xmlns:triggers="clr-namespace:Linterna.Triggers"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms">
+    <Grid BackgroundColor="#1B2028">
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <Label Text="Mi esposa es la luz en la oscuridad"
+                   FontSize="50"
+                   TextColor="#6C7273"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center">
+                <Label.Triggers>
+                    <MultiTrigger TargetType="Label">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition  Binding="{Binding Encendido}" Value="True"/>
+                        </MultiTrigger.Conditions>
+                        <MultiTrigger.EnterActions>
+                            <triggers:Tlabel Indicador="True"/>
+                        </MultiTrigger.EnterActions>
+                        <MultiTrigger.ExitActions>
+                            <triggers:Tlabel Indicador="False"/>
+                        </MultiTrigger.ExitActions>
+                    </MultiTrigger>
+                </Label.Triggers>
+            </Label>
+            <Image Source="{Binding OnOffoco}"
+                   Margin="20"/>
+            <Grid>
+                <lottie:AnimationView Animation="pulsar.json"
+                                      AutoPlay="True"
+                                      HeightRequest="100"
+                                      WidthRequest="100"
+                                      RepeatMode="Infinite">
+                    
+                </lottie:AnimationView>
+                <Image Source="{Binding OnOficon}"
+                       HeightRequest="100"
+                       Margin="20">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnOfCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                
+            </Grid>
+        </StackLayout>
+        <Grid.Triggers>
+            <DataTrigger TargetType="Grid"
+                         Binding="{Binding Encendido}"
+                         Value="True">
+                <Setter Property="BackgroundColor" Value="#1F1D2C"/>
+            </DataTrigger>
+            <DataTrigger TargetType="Grid"
+                         Binding="{Binding Encendido}"
+                         Value="False">
+                <Setter Property="BackgroundColor" Value="#1B2028"/>
+            </DataTrigger>
+        </Grid.Triggers>
+    </Grid>
+
+</ContentPage>
